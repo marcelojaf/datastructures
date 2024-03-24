@@ -3,7 +3,10 @@ using LinkedList;
 
 Console.WriteLine("Hello, World!");
 
-bool isPalindrome = Palindrome.IsPalindrome(ListNodeUtils.CreateLinkedList([1, 2, 3, 2, 1]));
+//var listWithCycle = ListNodeUtils.CreateLinkedList([1, 2, 3, 4, 5, 6, 7, 8]);
+var listWithCycle = ListNodeUtils.CreateLinkedList([1, 2, 3, 4, 5]);
+//var listWithCycle = ListNodeUtils.CreateLinkedList([2, 1, 3, 5, 6, 4, 7]);
 
-Console.WriteLine(isPalindrome);
-Console.WriteLine("The End!");
+var listNodeWhereCycleBegins = ListNodeUtils.OddEvenList(listWithCycle);
+
+Console.WriteLine(ListNodeUtils.PrintLinkedList(listNodeWhereCycleBegins));
