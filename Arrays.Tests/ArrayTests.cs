@@ -1,6 +1,3 @@
-using Microsoft.VisualBasic;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-
 namespace Arrays.Tests;
 
 public class ArrayTests
@@ -54,17 +51,32 @@ public class ArrayTests
         Assert.Equal(expected, result);
     }
 
+    public static IEnumerable<object[]> MaxValueAfterOperationsData =>
+        new List<object[]>
+        {
+        new object[]
+        {
+            5,
+            new List<List<int>>
+            {
+                new List<int> { 1, 2, 100 },
+                new List<int> { 2, 5, 100 },
+                new List<int> { 3, 4, 100 }
+            },
+            200
+        }
+        };
+
+
     [Theory]
-    [InlineData(5, new int[][] { new int[] { 1, 2, 100 }, new int[] { 2, 5, 100 }, new int[] { 3, 4, 100 } }, 200)]
-
-    public void MaxValueAfterOperations_ReturnsMaxValue(int n, int[][] queriesArray, int expectedMaxValue)
+    [MemberData(nameof(MaxValueAfterOperationsData))]
+    public void MaxValueAfterOperations_ReturnsMaxValue(int n, List<List<int>> queries, int expectedMaxValue)
     {
-        var queries = queriesArray.Select(q => q.ToList()).ToList();
-
         // Act
         long actualMaxValue = ArrayUtils.arrayManipulation(n, queries);
 
         // Assert
         Assert.Equal(expectedMaxValue, actualMaxValue);
     }
+
 }
