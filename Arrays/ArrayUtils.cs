@@ -101,32 +101,101 @@ public class ArrayUtils
 
     public static long arrayManipulation(int n, List<List<int>> queries)
     {
-        int[] myList = new int[n];
-        int index1 = 0;
-        int index2 = 0;
-        int valueToAdd = 0;
-        int maxValue = 0;
+        long[] myList = new long[n + 1]; // Use long to avoid overflow and +1 for easier handling of 1-based index
+        long maxValue = 0;
 
-        foreach (var row in queries)
+        foreach (var query in queries)
         {
-            index1 = row[0];
-            index2 = row[1];
-            valueToAdd = row[2];
+            int index1 = query[0] - 1; // Adjust for 0-based index
+            int index2 = query[1]; // Use index2 for marking the end of the addition
+            int valueToAdd = query[2];
 
             myList[index1] += valueToAdd;
-            myList[index2] += valueToAdd;
-            if (myList[index1] >= myList[index2])
-            {
-                maxValue = myList[index1];
-            }
-            else
-            {
-                maxValue = myList[index2];
-            }
+            if (index2 < n) myList[index2] -= valueToAdd; // Decrease the value right after index2 to reverse the addition effect later
+        }
+
+        long tempSum = 0;
+        for (int i = 0; i < n; i++)
+        {
+            tempSum += myList[i];
+            if (tempSum > maxValue) maxValue = tempSum;
         }
 
         return maxValue;
     }
+
+    // THIS IS A SOLUTION ACCEPTED BUT I DONT'T UNDERSTAND
+    // public static int FirstMissingPositive(int[] nums)
+    // {
+    //     int n = nums.Length;
+
+    //     // Step 1: Move all non-positive integers to the end of the array
+    //     int nonPosIdx = 0;
+    //     for (int i = 0; i < n; i++)
+    //     {
+    //         if (nums[i] <= 0)
+    //         {
+    //             int temp = nums[i];
+    //             nums[i] = nums[nonPosIdx];
+    //             nums[nonPosIdx] = temp;
+    //             nonPosIdx++;
+    //         }
+    //     }
+
+    //     // Step 2: Mark the presence of positive integers by negating the corresponding index
+    //     for (int i = nonPosIdx; i < n; i++)
+    //     {
+    //         int num = Math.Abs(nums[i]);
+    //         if (num <= n - nonPosIdx && nums[num - 1 + nonPosIdx] > 0)
+    //         {
+    //             nums[num - 1 + nonPosIdx] *= -1;
+    //         }
+    //     }
+
+    //     // Step 3: Find the first missing positive integer
+    //     for (int i = nonPosIdx; i < n; i++)
+    //     {
+    //         if (nums[i] > 0)
+    //         {
+    //             return i - nonPosIdx + 1;
+    //         }
+    //     }
+
+    //     return n - nonPosIdx + 1;
+    // }
+
+    public static int FirstMissingPositive(int[] nums)
+    {
+        int tempIndex = nums.Length;
+
+        for (int i = 0; i < tempIndex; ++i)
+        {
+            // While the current number can be placed in a "correct" position that is different from the current position
+            // and the target position does not already contain the correct number,
+            // swap the numbers.
+            while (nums[i] > 0 && nums[i] <= tempIndex && nums[nums[i] - 1] != nums[i])
+            {
+                // Swap nums[i] and nums[nums[i] - 1]
+                int temp = nums[i];
+                nums[i] = nums[temp - 1];
+                nums[temp - 1] = temp;
+            }
+        }
+
+        // Find the first number that is not at its correct position.
+        for (int i = 0; i < tempIndex; ++i)
+        {
+            if (nums[i] != i + 1)
+            {
+                return i + 1;
+            }
+        }
+
+        // If all numbers are in their correct positions, the missing one is n + 1.
+        return tempIndex + 1;
+    }
+
+
 
     public static string PrintArray(int[] nums)
     {

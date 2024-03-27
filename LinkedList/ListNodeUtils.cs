@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace LinkedList;
+﻿namespace LinkedList;
 
 public class ListNodeUtils
 {
@@ -105,35 +103,20 @@ public class ListNodeUtils
 
     public static ListNode ReverseListNode(ListNode head)
     {
-        if (head == null)
-            return null;
-        if (head.next == null)
-        {
-            return head;
-        }
-        ListNode current = head;
-        ListNode prev = null;
-        ListNode nextTemp = null;
-        ListNode newHead = null;
-        while (current.next != null)
-        {
-            prev = current.next;
-            nextTemp = current.next.next;
+        ListNode prev = null; // Previous node, starts as null
+        ListNode current = head; // Current node starts as head of the list
+        ListNode nextTemp = null; // Temporary node to store the next node
 
-            if (newHead == null)
-            {
-                prev.next = current;
-            }
-            else
-            {
-                prev.next = newHead;
-            }
-
-            newHead = prev;
-            current.next = nextTemp;
+        while (current != null)
+        {
+            nextTemp = current.next; // Save next node
+            current.next = prev; // Reverse current node's pointer
+            prev = current; // Move prev and current one step forward
+            current = nextTemp;
         }
 
-        return newHead;
+        // After the loop, prev will be the new head of the reversed list
+        return prev;
     }
 
     /// <summary>

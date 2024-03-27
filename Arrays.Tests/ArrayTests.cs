@@ -51,9 +51,14 @@ public class ArrayTests
         Assert.Equal(expected, result);
     }
 
-    public static IEnumerable<object[]> MaxValueAfterOperationsData =>
-        new List<object[]>
-        {
+    /// <summary>
+    /// Provides test data for testing array manipulation.
+    /// Each test case consists of three parts: the size of the array (n), 
+    /// a list of operations (queries) where each operation is represented as a list of three integers [start index, end index, value to add], 
+    /// and the expected maximum value in the array after all operations have been performed.
+    /// </summary>
+    public static IEnumerable<object[]> MaxValueAfterOperationsData => new List<object[]>
+    {
         new object[]
         {
             5,
@@ -64,19 +69,47 @@ public class ArrayTests
                 new List<int> { 3, 4, 100 }
             },
             200
+        },
+        // Adding the requested test case
+        new object[]
+        {
+            10, // Array size
+            new List<List<int>>
+            {
+                new List<int> { 1, 5, 3 },
+                new List<int> { 4, 8, 7 },
+                new List<int> { 6, 9, 1 }
+            },
+            10 // Expected maximum value
         }
-        };
-
+    };
 
     [Theory]
     [MemberData(nameof(MaxValueAfterOperationsData))]
     public void MaxValueAfterOperations_ReturnsMaxValue(int n, List<List<int>> queries, int expectedMaxValue)
     {
-        // Act
+        // Arrange & Act
         long actualMaxValue = ArrayUtils.arrayManipulation(n, queries);
 
         // Assert
         Assert.Equal(expectedMaxValue, actualMaxValue);
     }
 
+    [Theory(DisplayName = "FirstMissingPositive")]
+    [InlineData(new int[] { 1, 2, 0 }, 3)]
+    [InlineData(new int[] { 3, 4, -1, 1 }, 2)]
+    [InlineData(new int[] { 7, 8, 9, 11, 12 }, 1)]
+    [InlineData(new int[] { 4, 2, 1 }, 3)]
+    [InlineData(new int[] { 4, 3, 2, 1 }, 5)]
+    [InlineData(new int[] { 2, 1 }, 3)]
+    [InlineData(new int[] { 5, 1 }, 2)]
+    [InlineData(new int[] { 500, 499, 321, 1 }, 2)]
+    public void FirstMissingPositive_WithValidData_ShouldReturnExpectedResult(int[] nums, int expected)
+    {
+        // Arrange & Act
+        int result = ArrayUtils.FirstMissingPositive(nums);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
 }
