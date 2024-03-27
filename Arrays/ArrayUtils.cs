@@ -266,13 +266,188 @@ public class ArrayUtils
         Console.WriteLine($"{minSum} {maxSum}");
     }
 
-    public static string timeConversion(string s)
+    public static int findMedian(List<int> arr)
     {
-        string result = "";
+        var newArray = BubbleSort(arr);
 
-        string strHour = s.Substring(0, s.IndexOf(':'));
+        return newArray[newArray.Count / 2];
+    }
 
-        return result;
+    public static List<int> BubbleSort(List<int> arr)
+    {
+        bool swapped = true;
+        while (swapped)
+        {
+            swapped = false;
+            for (int i = 1; i < arr.Count; i++)
+            {
+                if (arr[i - 1] > arr[i])
+                {
+                    // Swap the elements
+                    int temp = arr[i - 1];
+                    arr[i - 1] = arr[i];
+                    arr[i] = temp;
+                    swapped = true; // A swap occurred, indicating that the list was not sorted.
+                }
+            }
+        }
+        return arr;
+    }
+
+    public static int lonelyinteger(List<int> intArray)
+    {
+        int lonelyInt = 0;
+        List<int> repeatedNumbers = new List<int>();
+        List<int> checkedNumbers = new List<int>();
+        checkedNumbers.Add(intArray[0]);
+        for (int i = 1; i < intArray.Count; i++)
+        {
+            if (checkedNumbers.Any(num => num == intArray[i]))
+            {
+                repeatedNumbers.Add(intArray[i]);
+                continue;
+            }
+
+            if (intArray[i] == intArray[i - 1])
+            {
+                repeatedNumbers.Add(intArray[i]);
+            }
+            checkedNumbers.Add(intArray[i]);
+        }
+
+        lonelyInt = checkedNumbers.Where(num => !repeatedNumbers.Contains(num)).FirstOrDefault();
+
+        return lonelyInt;
+    }
+
+    public static int diagonalDifference(List<List<int>> arr)
+    {
+        int primaryDiagonalSum = 0, secondaryDiagonalSum = 0;
+
+        for (int i = 0; i < arr.Count; i++)
+        {
+            primaryDiagonalSum += arr[i][i];
+            secondaryDiagonalSum += arr[i][arr.Count - 1 - i];
+        }
+
+        return Math.Abs(primaryDiagonalSum - secondaryDiagonalSum);
+    }
+
+
+    public static List<int> countingSort(List<int> arr)
+    {
+        int[] result = new int[100];
+
+        foreach (var item in arr)
+        {
+            result[item]++;
+        }
+
+        return result.ToList();
+    }
+
+
+    public static int flippingMatrix(List<List<int>> matrix)
+    {
+        // matrix = new List<List<int>>{
+        //     new List<int>{
+        //         112,42,83,119
+        //     },
+        //     new List<int>{
+        //         56,125,56,49
+        //     },
+        //     new List<int>{
+        //         15,78,101,43
+        //     },
+        //     new List<int>{
+        //         62,98,114,108
+        //     },
+        // };
+
+        matrix = new List<List<int>>{
+            new List<int>{
+                1,2
+            },
+            new List<int>{
+                3,4
+            },
+        };
+
+        int n = matrix.Count - 1;
+        int maximumSum = 0;
+        // No case de matriz 2n sendo n = 2, faz só o 0,0
+        // No case de matriz 2n sendo n = 4, faz os 4 aqui
+        // No case de matriz 2n sendo n = 8, aumentar os calculos
+        //[0,0]
+        int valorAtual = matrix[0][0];
+        int valorHorizontal = matrix[0][n];
+        int valorVertical = matrix[n][0];
+        int valorDiagonal = matrix[n][n];
+
+        if (valorHorizontal > valorAtual)
+            valorAtual = valorHorizontal;
+        if (valorVertical > valorAtual)
+            valorAtual = valorVertical;
+        if (valorDiagonal > valorAtual)
+            valorAtual = valorDiagonal;
+
+        maximumSum += valorAtual;
+
+        //[0,1]
+        valorAtual = matrix[0][1];
+        valorHorizontal = matrix[0][n - 1];
+        valorVertical = matrix[n][1];
+        valorDiagonal = matrix[n][n - 1];
+
+        if (valorHorizontal > valorAtual)
+            valorAtual = valorHorizontal;
+        if (valorVertical > valorAtual)
+            valorAtual = valorVertical;
+        if (valorDiagonal > valorAtual)
+            valorAtual = valorDiagonal;
+
+        maximumSum += valorAtual;
+
+        //[1,0]
+        valorAtual = matrix[1][0];
+        valorHorizontal = matrix[1][n];
+        valorVertical = matrix[n - 1][0];
+        valorDiagonal = matrix[n - 1][n];
+
+        if (valorHorizontal > valorAtual)
+            valorAtual = valorHorizontal;
+        if (valorVertical > valorAtual)
+            valorAtual = valorVertical;
+        if (valorDiagonal > valorAtual)
+            valorAtual = valorDiagonal;
+
+        maximumSum += valorAtual;
+
+        //[1,1]
+        valorAtual = matrix[1][1];
+        valorHorizontal = matrix[1][n - 1];
+        valorVertical = matrix[n - 1][1];
+        valorDiagonal = matrix[n - 1][n - 1];
+
+        if (valorHorizontal > valorAtual)
+            valorAtual = valorHorizontal;
+        if (valorVertical > valorAtual)
+            valorAtual = valorVertical;
+        if (valorDiagonal > valorAtual)
+            valorAtual = valorDiagonal;
+
+        maximumSum += valorAtual;
+
+        return maximumSum;
+    }
+
+    public static List<int> ReverseList(List<int> listToReverse)
+    {
+        int[] listArray = listToReverse.ToArray();
+
+        var reversedArray = listArray.Reverse();
+
+        return reversedArray.ToList();
     }
 
     public static string PrintArray(int[] nums)

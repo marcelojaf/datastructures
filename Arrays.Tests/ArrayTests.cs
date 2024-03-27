@@ -51,6 +51,8 @@ public class ArrayTests
         Assert.Equal(expected, result);
     }
 
+
+
     /// <summary>
     /// Provides test data for testing array manipulation.
     /// Each test case consists of three parts: the size of the array (n), 
@@ -112,4 +114,64 @@ public class ArrayTests
         // Assert
         Assert.Equal(expected, result);
     }
+
+    public static IEnumerable<object[]> DiagonalDifferenceData => new List<object[]>
+{
+    new object[]
+    {
+        new List<List<int>>
+        {
+            new List<int> { 11, 2, 4 },
+            new List<int> { 4, 5, 6 },
+            new List<int> { 10, 8, -12 }
+        },
+        15
+    },
+    new object[]
+    {
+        new List<List<int>>
+        {
+            new List<int> { 11, 2, 4, 3 },
+            new List<int> { 4, 5, 6, 7 },
+            new List<int> { 10, 8, -12, -1 },
+            new List<int> { 17, 9, 1, 2 }
+        },
+        28
+    },
+    // Adding a test case for a 2x2 matrix
+    new object[]
+    {
+        new List<List<int>>
+        {
+            new List<int> { 1, 2 },
+            new List<int> { 3, 4 }
+        },
+        2
+    }
+};
+
+    [Theory(DisplayName = "DiagonalDifference")]
+    [MemberData(nameof(DiagonalDifferenceData))]
+    public void DiagonalDifference_WithValidData_ShouldReturnExpectedResult(List<List<int>> matrix, int expected)
+    {
+        int result = ArrayUtils.diagonalDifference(matrix);
+        Assert.Equal(expected, result);
+    }
+
+    public static IEnumerable<object[]> CountingSortData => new List<object[]>
+    {
+        new object[] { new List<int> { 1, 1, 3, 2, 1 }, new List<int> { 0, 3, 1, 1, 0 } },
+        new object[] { new List<int> { 4, 4, 4, 4, 4 }, new List<int> { 0, 0, 0, 0, 5 } },
+        new object[] { new List<int> { 0, 2, 1, 0, 3 }, new List<int> { 2, 1, 1, 1, 0 } }
+    };
+
+    [Theory(DisplayName = "CountingSort")]
+    [MemberData(nameof(CountingSortData))]
+    public void CountingSort_WithValidData_ShouldReturnExpectedResult(List<int> input, List<int> expected)
+    {
+        var result = ArrayUtils.countingSort(input);
+        Assert.Equal(expected, result);
+    }
+
+
 }
