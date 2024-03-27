@@ -3,8 +3,8 @@ using Arrays;
 
 Console.WriteLine("Hello, World!");
 
-
-//Console.WriteLine(ArrayUtils.TwoSum([2, 7, 11, 15], 9));
-//Console.WriteLine(ArrayUtils.TwoSum([3, 2, 4], 6));
-//Console.WriteLine(ArrayUtils.PrintArray(ArrayUtils.TwoSum([3, 3], 6)));
-Console.WriteLine(ArrayUtils.RemoveElement([3, 2, 2, 3], 3));
+//ArrayUtils.plusMinus(new List<int>() { 1, 1, 0, -1, -1 });
+ArrayUtils.miniMaxSum(new List<int> { 1, 2, 3, 4, 5 });
+ArrayUtils.miniMaxSum(new List<int> { 7, 69, 2, 221, 8974 });
+ArrayUtils.miniMaxSum(new List<int> { 1, 3, 5, 7, 9 });
+ArrayUtils.miniMaxSum(new List<int> { 1, 1, 1, 1, 1 });

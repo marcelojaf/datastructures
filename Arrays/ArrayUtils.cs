@@ -195,7 +195,70 @@ public class ArrayUtils
         return tempIndex + 1;
     }
 
+    public static void plusMinus(List<int> arr)
+    {
+        if (arr == null || arr.Count == 0)
+        {
+            Console.WriteLine("Empty list");
+            return;
+        }
 
+        int n = arr.Count;
+        int positiveNumbers = 0;
+        int negativeNumbers = 0;
+        int zeroNumbers = 0;
+
+        foreach (int val in arr)
+        {
+            if (val == 0)
+                zeroNumbers++;
+            else if (val > 0)
+                positiveNumbers++;
+            else
+                negativeNumbers++;
+        }
+
+        decimal positiveRatio = Math.Round((decimal)positiveNumbers / n, 6);
+        decimal negativeRatio = Math.Round((decimal)negativeNumbers / n, 6);
+        decimal zeroRatio = Math.Round((decimal)zeroNumbers / n, 6);
+
+        Console.WriteLine(positiveRatio.ToString("F6"));
+        Console.WriteLine(negativeRatio.ToString("F6"));
+        Console.WriteLine(zeroRatio.ToString("F6"));
+    }
+
+    public static void miniMaxSum(List<int> arr)
+    {
+        if (arr == null || arr.Count == 0)
+        {
+            Console.WriteLine("Empty list");
+            return;
+        }
+
+        int min = arr[0];
+        int max = arr[0];
+        // Get maximum and minimum value
+        foreach (int val in arr)
+        {
+            if (val < min)
+                min = val;
+            else if (val > max)
+                max = val;
+        }
+
+        int minSum = 0;
+        int maxSum = 0;
+        foreach (int val in arr)
+        {
+            if (val < max || val == min)
+                minSum += val;
+            if (val > min || val == max)
+                maxSum += val;
+
+        }
+
+        Console.WriteLine($"{minSum} {maxSum}");
+    }
 
     public static string PrintArray(int[] nums)
     {
