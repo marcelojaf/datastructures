@@ -234,30 +234,45 @@ public class ArrayUtils
             Console.WriteLine("Empty list");
             return;
         }
-
-        int min = arr[0];
-        int max = arr[0];
-        // Get maximum and minimum value
-        foreach (int val in arr)
+        int indexToIgnore = 0;
+        long sumTemp = 0;
+        List<long> sumArray = new List<long>();
+        while (indexToIgnore < arr.Count)
         {
-            if (val < min)
-                min = val;
-            else if (val > max)
-                max = val;
+            for (int i = 0; i < arr.Count; i++)
+            {
+                if (i != indexToIgnore)
+                {
+                    sumTemp += arr[i];
+                }
+            }
+            indexToIgnore++;
+            sumArray.Add(sumTemp);
+            sumTemp = 0;
         }
 
-        int minSum = 0;
-        int maxSum = 0;
-        foreach (int val in arr)
-        {
-            if (val < max || val == min)
-                minSum += val;
-            if (val > min || val == max)
-                maxSum += val;
 
+        long minSum = sumArray[0];
+        long maxSum = sumArray[0];
+        foreach (long val in sumArray)
+        {
+            if (val > maxSum)
+                maxSum = val;
+
+            if (val < minSum)
+                minSum = val;
         }
 
         Console.WriteLine($"{minSum} {maxSum}");
+    }
+
+    public static string timeConversion(string s)
+    {
+        string result = "";
+
+        string strHour = s.Substring(0, s.IndexOf(':'));
+
+        return result;
     }
 
     public static string PrintArray(int[] nums)
