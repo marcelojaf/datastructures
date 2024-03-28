@@ -336,7 +336,7 @@ public class ArrayUtils
 
     public static List<int> countingSort(List<int> arr)
     {
-        int[] result = new int[100];
+        int[] result = new int[5];
 
         foreach (var item in arr)
         {

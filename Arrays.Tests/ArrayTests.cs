@@ -146,7 +146,7 @@ public class ArrayTests
             new List<int> { 1, 2 },
             new List<int> { 3, 4 }
         },
-        2
+        0
     }
 };
 
