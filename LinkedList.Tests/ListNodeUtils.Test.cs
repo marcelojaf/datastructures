@@ -214,6 +214,37 @@ public class ListNodeUtilsTests
         Assert.True(AreListsEqual(reorderedList, [1, 3, 5, 7, 2, 4, 6, 8]));
     }
 
+    public static IEnumerable<object[]> MergeSortedListsData = new List<object[]>
+    {
+        new object[]{
+            ListNodeUtils.CreateLinkedList([1, 3, 7]),
+            ListNodeUtils.CreateLinkedList([1, 2]),
+            ListNodeUtils.CreateLinkedList([1, 1, 2, 3, 7])
+        },
+        new object[]{
+            ListNodeUtils.CreateLinkedList([1, 2, 3]),
+            ListNodeUtils.CreateLinkedList([3, 4]),
+            ListNodeUtils.CreateLinkedList([1, 2, 3, 3, 4]),
+        },
+        new object[]{
+            ListNodeUtils.CreateLinkedList([4, 5, 6]),
+            ListNodeUtils.CreateLinkedList([1, 2, 10]),
+            ListNodeUtils.CreateLinkedList([1, 2, 4, 5, 6, 10]),
+        }
+    };
+
+
+    [Theory(DisplayName = "MergeSortedLists")]
+    [MemberData(nameof(MergeSortedListsData))]
+    public void MergeSortedLists_WithValidData_ShouldReturnMergedList(ListNode list1, ListNode list2, ListNode expected)
+    {
+        // Arrange and Act
+        var mergedList = ListNodeUtils.mergeSortedLists(list1, list2);
+
+        // Assert
+        Assert.True(AreListsEqual(mergedList, expected));
+    }
+
     private static bool AreListsEqual(ListNode head, int[] values)
     {
         int i = 0;

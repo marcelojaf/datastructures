@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arrays.Tests", "Arrays.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringManipulation", "StringManipulation\StringManipulation.csproj", "{2823B527-F3BF-4036-8818-9F697425AA09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTree", "BinaryTree\BinaryTree.csproj", "{53BBFD81-EE8B-4E5F-A344-54AE5EDF4048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{2823B527-F3BF-4036-8818-9F697425AA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2823B527-F3BF-4036-8818-9F697425AA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2823B527-F3BF-4036-8818-9F697425AA09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53BBFD81-EE8B-4E5F-A344-54AE5EDF4048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53BBFD81-EE8B-4E5F-A344-54AE5EDF4048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53BBFD81-EE8B-4E5F-A344-54AE5EDF4048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53BBFD81-EE8B-4E5F-A344-54AE5EDF4048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

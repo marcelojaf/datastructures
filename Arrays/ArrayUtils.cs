@@ -349,94 +349,26 @@ public class ArrayUtils
 
     public static int flippingMatrix(List<List<int>> matrix)
     {
-        // matrix = new List<List<int>>{
-        //     new List<int>{
-        //         112,42,83,119
-        //     },
-        //     new List<int>{
-        //         56,125,56,49
-        //     },
-        //     new List<int>{
-        //         15,78,101,43
-        //     },
-        //     new List<int>{
-        //         62,98,114,108
-        //     },
-        // };
-
-        matrix = new List<List<int>>{
-            new List<int>{
-                1,2
-            },
-            new List<int>{
-                3,4
-            },
-        };
-
-        int n = matrix.Count - 1;
+        int n = matrix.Count / 2;
         int maximumSum = 0;
-        // No case de matriz 2n sendo n = 2, faz só o 0,0
-        // No case de matriz 2n sendo n = 4, faz os 4 aqui
-        // No case de matriz 2n sendo n = 8, aumentar os calculos
-        //[0,0]
-        int valorAtual = matrix[0][0];
-        int valorHorizontal = matrix[0][n];
-        int valorVertical = matrix[n][0];
-        int valorDiagonal = matrix[n][n];
 
-        if (valorHorizontal > valorAtual)
-            valorAtual = valorHorizontal;
-        if (valorVertical > valorAtual)
-            valorAtual = valorVertical;
-        if (valorDiagonal > valorAtual)
-            valorAtual = valorDiagonal;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                int valorAtual = matrix[i][j];
+                int valorHorizontal = matrix[i][2 * n - j - 1];
+                int valorVertical = matrix[2 * n - i - 1][j];
+                int valorDiagonal = matrix[2 * n - i - 1][2 * n - j - 1];
 
-        maximumSum += valorAtual;
+                int maxValor = Math.Max(
+                    valorAtual,
+                    Math.Max(valorHorizontal, Math.Max(valorVertical, valorDiagonal))
+                );
 
-        //[0,1]
-        valorAtual = matrix[0][1];
-        valorHorizontal = matrix[0][n - 1];
-        valorVertical = matrix[n][1];
-        valorDiagonal = matrix[n][n - 1];
-
-        if (valorHorizontal > valorAtual)
-            valorAtual = valorHorizontal;
-        if (valorVertical > valorAtual)
-            valorAtual = valorVertical;
-        if (valorDiagonal > valorAtual)
-            valorAtual = valorDiagonal;
-
-        maximumSum += valorAtual;
-
-        //[1,0]
-        valorAtual = matrix[1][0];
-        valorHorizontal = matrix[1][n];
-        valorVertical = matrix[n - 1][0];
-        valorDiagonal = matrix[n - 1][n];
-
-        if (valorHorizontal > valorAtual)
-            valorAtual = valorHorizontal;
-        if (valorVertical > valorAtual)
-            valorAtual = valorVertical;
-        if (valorDiagonal > valorAtual)
-            valorAtual = valorDiagonal;
-
-        maximumSum += valorAtual;
-
-        //[1,1]
-        valorAtual = matrix[1][1];
-        valorHorizontal = matrix[1][n - 1];
-        valorVertical = matrix[n - 1][1];
-        valorDiagonal = matrix[n - 1][n - 1];
-
-        if (valorHorizontal > valorAtual)
-            valorAtual = valorHorizontal;
-        if (valorVertical > valorAtual)
-            valorAtual = valorVertical;
-        if (valorDiagonal > valorAtual)
-            valorAtual = valorDiagonal;
-
-        maximumSum += valorAtual;
+                maximumSum += maxValor;
+            }
+        }
 
         return maximumSum;
     }

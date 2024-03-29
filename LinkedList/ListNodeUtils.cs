@@ -101,23 +101,28 @@ public class ListNodeUtils
         return null;
     }
 
+    /// <summary>
+    /// Reverte uma lista encadeada.
+    /// </summary>
+    /// <param name="head">Cabeça da lista encadeada original.</param>
+    /// <returns>A nova cabeça da lista encadeada após a inversão.</returns>
     public static ListNode ReverseListNode(ListNode head)
     {
-        ListNode prev = null; // Previous node, starts as null
-        ListNode current = head; // Current node starts as head of the list
-        ListNode nextTemp = null; // Temporary node to store the next node
+        ListNode previous = null;
+        ListNode current = head;
+        ListNode next = null;
 
         while (current != null)
         {
-            nextTemp = current.next; // Save next node
-            current.next = prev; // Reverse current node's pointer
-            prev = current; // Move prev and current one step forward
-            current = nextTemp;
+            next = current.next; // Guarda o próximo nó
+            current.next = previous; // Inverte o ponteiro do nó atual
+            previous = current; // Avança com previous para o nó atual
+            current = next; // Avança com current para o próximo nó
         }
 
-        // After the loop, prev will be the new head of the reversed list
-        return prev;
+        return previous; // previous é agora a nova cabeça da lista invertida
     }
+
 
     /// <summary>
     /// Remove all nodes where val equals to the parameter
@@ -208,6 +213,66 @@ public class ListNodeUtils
         }
 
         return false; // No cycle found
+    }
+
+    public static ListNode mergeSortedLists(ListNode head1, ListNode head2)
+    {
+        ListNode newHead = null;
+        ListNode temp1 = null;
+        ListNode temp2 = null;
+
+        while (head2 != null && head1 != null)
+        {
+            if (head1 != null && head2.val >= head1.val)
+            {
+                if (newHead == null)
+                    newHead = head1;
+
+                if (head1.next != null && head2.val <= head1.next.val)
+                {
+                    temp1 = head1.next;
+                    temp2 = head2.next;
+
+                    head1.next = head2;
+                    head2.next = temp1;
+
+                    head2 = temp2;
+                }
+                if (head1.next == null && head2.val > head1.val)
+                {
+                    head1.next = head2;
+                    temp2 = head2.next;
+                    head2 = temp2;
+                }
+                head1 = head1.next;
+            }
+            else if (head1 != null && head2.val <= head1.val)
+            {
+                if (newHead == null)
+                    newHead = head2;
+
+                if (head2.next != null && head1.val <= head2.next.val)
+                {
+                    temp1 = head1.next;
+                    temp2 = head2.next;
+
+                    head2.next = head1;
+                    head1.next = temp2;
+
+                    head1 = temp1;
+                }
+                if (head2.next == null && head1.val > head2.val)
+                {
+                    head2.next = head1;
+                    temp1 = head1.next;
+                    head1 = temp1;
+                }
+                head2 = head2.next;
+            }
+
+        }
+
+        return newHead;
     }
 
 
